@@ -20,15 +20,14 @@
                             from="${gestao_vendas.Produto.list()}" 
                             optionKey="id"
                             noSelection="['null': 'Selecionar produto']"
-                            onChange="  ajaxPost(this, '${createLink(action: 'atualizarValorPadrao', params: [id: i])}', 'divListaProdutos', true, 1)"
-                        />
+                            onChange="  ajaxPost(this, '${createLink(action: 'atualizarValorPadrao', params: [id: i])}', 'divListaProdutos', true, 1)" required="true"/>
                     </td>
                     <td>
                         <div id="divValorPadrao${i}">
                             <g:textField 
                                 type="number" 
                                 name="itensVenda[${i}].valorUnitario" 
-                                value="${itemVenda?.valorUnitario}" 
+                                value="${formatNumber(number: (itemVenda?.valorUnitario!=null?itemVenda?.valorUnitario: 0), format: '###,###,##0.00')}"
                                 onkeyup="mascaraNumero(this);"
                                 readonly="readonly"
                                 onChange="ajaxPost(this, '${createLink(action: 'atualizarTotalItem', params:[id: i])}', 'divListaProdutos', true, 1)"/>
@@ -39,9 +38,9 @@
                             <g:textField 
                                 type="number" 
                                 name="itensVenda[${i}].quantidade" 
-                                value="${itemVenda?.quantidade}"
+                                value="${formatNumber(number: (itemVenda?.quantidade!=null?itemVenda?.quantidade: 0))}"
                                 min="1"
-                                onChange="ajaxPost(this,'${createLink(action: 'atualizarTotalItem', params:[id: i])}', 'divListaProdutos', true, 1)"/>
+                                onChange="ajaxPost(this,'${createLink(action: 'atualizarTotalItem', params:[id: i])}', 'divListaProdutos', true, 1)" required="true" />
                         </div>
                     </td>
                     <td>
@@ -49,9 +48,9 @@
                             <g:textField 
                                 type="number" 
                                 name="itensVenda[${i}].desconto" 
-                                value="${formatNumber(number: itemVenda?.desconto, format: '###,###,##0.00')}"
+                                value="${formatNumber(number: (itemVenda?.desconto!=null?itemVenda?.desconto: 0), format: '###,###,##0.00')}"
                                 onkeyup="mascaraNumero(this);"
-                                onChange="ajaxPost(this,'${createLink(action: 'atualizarTotalItem', params:[id: i])}', 'divListaProdutos', true, 1)"/>
+                                onChange="ajaxPost(this,'${createLink(action: 'atualizarTotalItem', params:[id: i])}', 'divListaProdutos', true, 1)" required="true" />
                         </div>
                     </td>
                     <td>
@@ -59,7 +58,7 @@
                             <g:textField 
                                 type="number" 
                                 name="itensVenda[${i}].valorTotalItem" 
-                                value="${formatNumber(number: itemVenda?.valorTotalItem, format: '###,###,##0.00')}"
+                                value="${formatNumber(number: (itemVenda?.valorTotalItem!=null?itemVenda?.valorTotalItem:0), format: '###,###,##0.00')}"
                                 onkeyup="mascaraNumero(this);"
                                 id="itensVenda[${i}].valorTotalItem"
                                 readonly="readonly"/>
@@ -71,7 +70,8 @@
                             class="btn btn-outline-danger" 
                             id="excluirLinha" 
                             name="excluirLinha"
-                            onClick="ajaxPost(this,'${createLink(action: 'removeProduto', params:[id: i])}','divListaProdutos')">x
+                            onClick="ajaxPost(this,'${createLink(action:  'removeProduto' , params:[id: i])}','divListaProdutos', true, 1)"
+                            >x
                         </button>
                     </td>
                 </tr>
@@ -80,11 +80,10 @@
     </table>
     <div class="divValorTotal">
             <label for="valorTotal">Total R$: </label>
-            <input 
-                type="number" 
+            <g:textField 
                 id="valorTotal" 
                 name="valorTotal" 
-                value="${formatNumber(number: vendaInstance?.valorTotal, format: '###,###,##0.00')}" 
+                value="${formatNumber(number: (vendaInstance?.valorTotal!=null?vendaInstance?.valorTotal:0), format: '###,###,##0.00')}" 
                 onkeyup="mascaraNumero(this);" 
                 readonly="readonly"/>
     </div>

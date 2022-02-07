@@ -43,7 +43,6 @@ class VendaController {
 
     def create() {
         def vendaInstance = new Venda(params)
-        vendaInstance.itensVenda = [new VendaItem()]
         [vendaInstance: vendaInstance]
     }
 
@@ -112,6 +111,7 @@ class VendaController {
 
     // faz a adição de uma nova linha para um novo produto na lista de vendas
     def addProduto(){
+        Integer i
         def vendaInstance = new Venda(params)
         if(vendaInstance.itensVenda == null){
             vendaInstance.itensVenda = []
@@ -123,6 +123,7 @@ class VendaController {
     def removeProduto(int id) {
         def vendaInstance = new Venda(params)
         vendaInstance.itensVenda.remove(id)
+        calcularValorTotalVenda(vendaInstance)
         render(template:"listaProdutos" , model: [vendaInstance: vendaInstance])
     }
     // atualiza valores das demais colunas do VendaItem de acordo com o valor padrao do Produto
@@ -134,6 +135,7 @@ class VendaController {
             vendaInstance.itensVenda[params.id as int].desconto = 0;
             vendaInstance.itensVenda[params.id as int].valorTotalItem = ((vendaInstance.itensVenda[params.id as int].valorUnitario * vendaInstance.itensVenda[params.id as int].quantidade)-vendaInstance.itensVenda[params.id as int].desconto);
         }
+        calcularValorTotalVenda(vendaInstance)
         render(template:"listaProdutos", model: [vendaInstance: vendaInstance, id: params.id])
     }
 
@@ -142,18 +144,22 @@ class VendaController {
         if(vendaInstance.itensVenda[params.id as int].produto){
             vendaInstance.itensVenda[params.id as int].valorTotalItem = ((vendaInstance.itensVenda[params.id as int].valorUnitario * vendaInstance.itensVenda[params.id as int].quantidade)-vendaInstance.itensVenda[params.id as int].desconto);
         }
-        // def valorTotal = 0
-        // vendaInstance.itensVenda.each{
-        //     valorTotal = valorTotal + it.valorTotalItem
-        // // }
-        // vendaInstance.vendaTotal = valorTotal
+        calcularValorTotalVenda(vendaInstance)
         render(template:"listaProdutos", model: [vendaInstance: vendaInstance, id: params.id])
     }
 
-    def calcularValorTotalVenda(int i) {
-        def vendaInstance = new Venda(params)
+    def calcularValorTotalVenda(Venda vendaInstance) {
+        vendaInstance.valorTotal = 0
         vendaInstance.itensVenda.each{
-            vendaInstance.valorTotal = vendaInstance.valorTotal + it.valorTotalItem 
+            if(it.valorTotalItem!= null){
+                vendaInstance.valorTotal +=it.valorTotalItem 
+            }else{
+                it.valorUnitario = 0
+                it.valorTotalItem = 0
+                it.quantidade = 0
+                it.desconto = 0
+            }
         }
     }
+    
 }
