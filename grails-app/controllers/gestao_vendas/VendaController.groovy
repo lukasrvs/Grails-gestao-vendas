@@ -123,7 +123,6 @@ class VendaController {
     def removeProduto(int id) {
         def vendaInstance = new Venda(params)
         vendaInstance.itensVenda.remove(id)
-
         render(template:"listaProdutos" , model: [vendaInstance: vendaInstance])
     }
     // atualiza valores das demais colunas do VendaItem de acordo com o valor padrao do Produto
@@ -153,6 +152,8 @@ class VendaController {
 
     def calcularValorTotalVenda(int i) {
         def vendaInstance = new Venda(params)
-        
+        vendaInstance.itensVenda.each{
+            vendaInstance.valorTotal = vendaInstance.valorTotal + it.valorTotalItem 
+        }
     }
 }
