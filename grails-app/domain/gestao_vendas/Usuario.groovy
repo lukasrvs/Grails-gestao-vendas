@@ -1,14 +1,16 @@
 package gestao_vendas
 class Usuario{
-    String nome
     String usuario
     String senha
     static constraints = {
-        nome(nullable: false, maxSize:255)
-        usuario(nullable:false, maxSize:50, unique: true)
-        senha(nullable:false, maxSize:50)
+        senha(nullable: false, blank: false, password: true, sizeMax: 50)
+        usuario(nullable: false, blank: false, unique: true, sizeMax: 50)
+    }
+    @Override
+    public String toString(){
+        return usuario;
     }
     static mapping = {
-        id generator: 'sequence', params: [sequence: 'sequence_usuario']
+	    password column: '`senha`'
     }
 }

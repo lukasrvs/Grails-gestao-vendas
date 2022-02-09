@@ -83,7 +83,7 @@
             <g:textField 
                 id="valorTotal" 
                 name="valorTotal" 
-                value="${formatNumber(number: (vendaInstance?.valorTotal!=null?vendaInstance?.valorTotal:0), format: '###,###,##0.00')}" 
+                value="${formatNumber(number: vendaInstance?.valorTotal, format: '###,###,##0.00')}" 
                 onkeyup="mascaraNumero(this);" 
                 readonly="readonly"/>
     </div>

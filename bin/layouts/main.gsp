@@ -23,12 +23,23 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gerenciamento<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
                     <li class="controller">
-                        <g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link>
+                        <g:link controller="cliente" action="index">Clientes</g:link>
                     </li>
-                    </g:each>
+                    <li class="controller">
+                        <g:link controller="produto" action="index">Produtos</g:link>
+                    </li>
+                    <li class="controller">
+                        <g:link controller="venda" action="index">Vendas</g:link>
+                    </li>
+                    <li class="controller">
+                        <g:link controller="usuario" action="index">Usuarios</g:link>
+                    </li>
                 </ul>
+                <li class="encerrar">
+                    <br/>
+                        <g:link controller="auth" action="encerrar">Encerrar</g:link>
+                </li>
             </li>
         </ul>
     </div>

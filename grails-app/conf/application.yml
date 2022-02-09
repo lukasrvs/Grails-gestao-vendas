@@ -97,7 +97,7 @@ environments:
     development:
         dataSource:
             dataSource:
-            dbCreate: update # create-drop #
+            dbCreate: create-drop # update # 
             url: jdbc:postgresql://localhost:5432/gestao_vendas_db
             username: postgres
             password: root

@@ -6,7 +6,9 @@ class Cliente{
     static constraints = {
         nome(nullable:false, maxSize:255)
         email(email:true, nullable: false, unique: true)
-        cpfCnpj(nullable: false)
+        cpfCnpj(validator:{value,obj->
+            return (value.length() == 11 || value.length()==14) && value.isNumber()
+        })
     }
     static mapping = {
         id generator: 'sequence', params: [sequence: 'sequence_cliente']

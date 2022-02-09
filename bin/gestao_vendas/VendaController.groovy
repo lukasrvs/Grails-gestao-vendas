@@ -108,7 +108,6 @@ class VendaController {
             redirect(action: "edit", id: id)
         }
     }
-
     // faz a adição de uma nova linha para um novo produto na lista de vendas
     def addProduto(){
         Integer i
@@ -122,7 +121,7 @@ class VendaController {
     // remove um produto da lista de vendas
     def removeProduto(int id) {
         def vendaInstance = new Venda(params)
-        vendaInstance.itensVenda.remove(id)
+        vendaInstance.itensVenda.remove(id) 
         calcularValorTotalVenda(vendaInstance)
         render(template:"listaProdutos" , model: [vendaInstance: vendaInstance])
     }
@@ -161,5 +160,4 @@ class VendaController {
             }
         }
     }
-    
 }
