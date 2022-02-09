@@ -1,0 +1,6 @@
+#Wed, 09 Feb 2022 00:08:05 -0300
+
+info.app.version=0.1
+info.app.name=gestao_vendas
+grails.env=development
+info.app.grailsVersion=3.3.11

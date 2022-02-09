@@ -1,0 +1,6 @@
+gestao_vendas.$AuthServiceImplementation
+gestao_vendas.$ClienteServiceImplementation
+gestao_vendas.$ProdutoServiceImplementation
+gestao_vendas.$UsuarioServiceImplementation
+gestao_vendas.$VendaItemServiceImplementation
+gestao_vendas.$VendaServiceImplementation
